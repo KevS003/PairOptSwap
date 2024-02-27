@@ -84,15 +84,19 @@ public class PlayerStateManager : MonoBehaviour
         //SwitchState(DashState);
 
         //Running coroutine instead of state cuz move is always overwritting dash
-        StartCoroutine(DashCoolDown());
+        if(dashing == false)
+            StartCoroutine(DashCoolDown());
         
     } 
 
     private IEnumerator DashCoolDown()
     {
+        Debug.Log("Dashing");
+        dashing = true;
         speed+=dashPower;
         yield return new WaitForSeconds(dashTime);
         speed-=dashPower;
+        dashing = false;
     }
 
 
