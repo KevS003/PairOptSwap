@@ -8,8 +8,13 @@ public class PlayerStateManager : MonoBehaviour
 {
     //MOVEMENT VARS
     public Rigidbody2D rb;
+    [HideInInspector]
     public Vector2 moveInput;
     public PlayerInput playerInput;
+    //Attacking vars
+    [SerializeField] public LayerMask attackableLayer;
+    [SerializeField] public Transform attackTransform;
+    [SerializeField] public float attackRange = 1.5f;
     /* InputAction move;
     InputAction dash;
     InputAction attack; */ 
@@ -18,7 +23,7 @@ public class PlayerStateManager : MonoBehaviour
     private float vertical;
     public float speed = 8f;
     public float dashPower = 2f;
-    public float dashTime = .8f;
+    public float dashTime = .2f;
     private bool isFacingRight = true;
     private bool dashing;
     
@@ -88,6 +93,11 @@ public class PlayerStateManager : MonoBehaviour
             StartCoroutine(DashCoolDown());
         
     } 
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        SwitchState(AttackState);
+    }
 
     private IEnumerator DashCoolDown()
     {
