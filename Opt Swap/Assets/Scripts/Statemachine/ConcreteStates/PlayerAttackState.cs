@@ -16,7 +16,7 @@ public class PlayerAttackState : PlayerBaseState
         //play anim and sound here
         hits = Physics2D.CircleCastAll(player.attackTransform.position, player.attackRange, player.transform.forward, 0f, player.attackableLayer);
         if(hits!=null)
-            DoDamage();
+            DoDamage(player.damage);
 
 
     }
@@ -32,11 +32,15 @@ public class PlayerAttackState : PlayerBaseState
     {
         //Leave if done
     }
-    private void DoDamage()
+    private void DoDamage(int damage)
     {
+        EnemyHealth doDamage;
         for(int i=0; i<hits.Length; i++)
         {
+            
             Debug.Log("Hit");
+            doDamage =hits[i].collider.GetComponent<EnemyHealth>();
+            doDamage.TookDamage(damage);
             //grab enemy health and subtract 
 
         }

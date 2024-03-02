@@ -15,16 +15,20 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] public LayerMask attackableLayer;
     [SerializeField] public Transform attackTransform;
     [SerializeField] public float attackRange = 1.5f;
+    //damage vars
+    public int damage;
+    //can change this based on powerups n stuff^
+
     /* InputAction move;
     InputAction dash;
     InputAction attack; */ 
 
-    private float horizontal;
+    /* private float horizontal;
     private float vertical;
-    public float speed = 8f;
+ */    public float speed = 8f;
     public float dashPower = 2f;
     public float dashTime = .2f;
-    private bool isFacingRight = true;
+    //private bool isFacingRight = true;
     private bool dashing;
     
     //STATEMACHINE STUFF
@@ -44,7 +48,7 @@ public class PlayerStateManager : MonoBehaviour
         move = playerInput.currentActionMap.FindAction("Move");
         playerInput. */
         //playerInput.actions.move += Move();
-        playerInput = new PlayerInput();//Get input system to turn on and off
+        //playerInput = new PlayerInput();//Get input system to turn on and off
         currentState = IdleState;
         currentState.EnterState(this);//calls the enterstate method at the start of IDLE 
     }
@@ -89,14 +93,15 @@ public class PlayerStateManager : MonoBehaviour
         //SwitchState(DashState);
 
         //Running coroutine instead of state cuz move is always overwritting dash
-        if(dashing == false)
+        if(context.started)
             StartCoroutine(DashCoolDown());
         
     } 
 
     public void Attack(InputAction.CallbackContext context)
     {
-        SwitchState(AttackState);
+        if(context.started)
+            SwitchState(AttackState);
     }
 
     private IEnumerator DashCoolDown()
