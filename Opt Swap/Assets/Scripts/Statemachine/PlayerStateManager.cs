@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerStateManager : MonoBehaviour
 {
     //MOVEMENT VARS
+    public Animator swatterAttack;
     public Rigidbody2D rb;
     [HideInInspector]
     public Vector2 moveInput;

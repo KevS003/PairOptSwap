@@ -15,6 +15,8 @@ public class PlayerAttackState : PlayerBaseState
         Debug.Log("Attacking");
         //play anim and sound here
         hits = Physics2D.CircleCastAll(player.attackTransform.position, player.attackRange, player.transform.forward, 0f, player.attackableLayer);
+        player.swatterAttack.Play("FlySwatter 0");
+        
         if(hits!=null)
             DoDamage(player.damage);
 
@@ -24,6 +26,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         //Swipe
         //Detect combo if ambitious
+
         
 
     }
@@ -31,6 +34,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void OnExit(PlayerStateManager player)
     {
         //Leave if done
+        
     }
     private void DoDamage(int damage)
     {

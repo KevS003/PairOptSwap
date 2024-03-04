@@ -3287,6 +3287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ef3cc73351bdc4085934448edcd33c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swatterAttack: {fileID: 497812988}
   rb: {fileID: 2127483772}
   moveInput: {x: 0, y: 0}
   playerInput: {fileID: 0}
