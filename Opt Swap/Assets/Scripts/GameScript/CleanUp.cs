@@ -8,6 +8,11 @@ public class CleanUp : MonoBehaviour
     {
         Debug.Log("jhndsagjh;");
         if(other.gameObject.layer == 3)
-            Destroy(other.gameObject); 
+        {
+            other.gameObject.SetActive(false);
+        }
+
+            
+            //Destroy(other.gameObject); 
     }
 }

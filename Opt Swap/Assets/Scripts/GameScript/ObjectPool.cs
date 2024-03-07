@@ -5,15 +5,37 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;//Ran out of time to try
+    private List<GameObject> pooledObjects = new List<GameObject>();
+    public int amountToPool = 20;
+    [SerializeField] private GameObject flyPrefab;
+
+    private void Awake() 
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(int i = 0; i<amountToPool; i++)
+        {
+            GameObject obj = Instantiate(flyPrefab);
+            obj.SetActive(false);
+            pooledObjects.Add(obj);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject GetPooledObject()
     {
-        
+        for(int i =0; i <pooledObjects.Count; i++)
+        {
+            if(!pooledObjects[i].activeInHierarchy)
+            {
+                return pooledObjects[i];
+            }
+        }
+        return null;
     }
 }

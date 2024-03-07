@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     public Vector3 spawnerDirection;//NEED THIS NUMBER TO GET ENEMY MOVING THE CORRECT DIRECTION
     [SerializeField]
     private GameObject enemyPrefab;
-    private GameObject enemyRef;
+    //private GameObject enemyRef;
 
     
     [SerializeField]
@@ -33,8 +33,17 @@ public class Spawner : MonoBehaviour
         if (spawnCounter <= 0f)
         {
             spawnCounter = Random.Range(minSpawnTime, maxSpawnTime);
-            enemyRef = Instantiate(enemyPrefab, transform.position, enemyPrefab.transform.rotation);
-            enemyRef.GetComponent<Enemy>().SetUpEnemy(spawnerDirection);
+            //enemyRef = Instantiate(enemyPrefab, transform.position, enemyPrefab.transform.rotation);
+            GameObject fly = ObjectPool.instance.GetPooledObject();
+            //enemyRef.GetComponent<Enemy>().SetUpEnemy(spawnerDirection);
+
+            if(fly != null)
+            {
+                fly.transform.position = this.transform.position;
+                fly.GetComponent<Enemy>().SetUpEnemy(spawnerDirection);
+                fly.SetActive(true);
+                
+            }
 
             //Enemy newEnemy = CreateEnemy();
 

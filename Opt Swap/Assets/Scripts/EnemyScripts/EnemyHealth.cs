@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int enemyHealth;
+    [HideInInspector]
+    public int enemyHealthOG;
     private BoxCollider2D enemyBody;
     private AudioSource enemyAudio;
     public AudioClip damageAudio;
@@ -19,11 +21,13 @@ public class EnemyHealth : MonoBehaviour
     //use an array of random PNGs to spawn and despawn
     //place ref to game manager here to detect death and add to score
 
-    private void Start() 
+    private void Awake() 
     {
+        enemyHealthOG = enemyHealth;
         spriteRef = gameObject.GetComponent<SpriteRenderer>();
         enemyAudio = GetComponent<AudioSource>();  
-        enemyBody = GetComponent<BoxCollider2D>();  
+        enemyBody = GetComponent<BoxCollider2D>(); 
+        
     }
     public void TookDamage(int damage)//call this function if cast detects it in statemachine
     {
@@ -35,6 +39,7 @@ public class EnemyHealth : MonoBehaviour
             //instantiate particle effect
             dead = true;
             StartCoroutine(Death());
+            //DeathPool();
             //play death sound
             //return true;//if dead
             //destroy object
@@ -42,6 +47,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if(dead == false)
             StartCoroutine(DamageEffect());
+            //DamageEffectPool();
             
         //return false;//if not dead
         
@@ -60,11 +66,29 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.PlayOneShot(deathSound);
         spriteRef.enabled = false;
         enemyBody.enabled = false;
-        scoreRef.Scored();
+        //scoreRef.Scored();
         Instantiate(splatType[Random.Range(0, splatType.Length)], transform.position,rotation);
         yield return new WaitForSeconds(.5f);
-        Destroy(gameObject);
+        dead = false;
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
         
     }
+
+    /* public void DeathPool()
+    {
+        enemyAudio.PlayOneShot(deathSound);
+        spriteRef.enabled = false;
+        enemyBody.enabled = false;
+        //scoreRef.Scored();
+        Instantiate(splatType[Random.Range(0, splatType.Length)], transform.position,rotation);
+        gameObject.SetActive(false);
+    }
+    public void DamageEffectPool()
+    {
+        enemyAudio.PlayOneShot(damageAudio);
+        //change color of object
+        spriteRef.color = Color.red;
+    } */
     
 }
