@@ -13,14 +13,15 @@ public class GameTracker : MonoBehaviour
     //update score and timer UI 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
-    private float timeBonus;
-    private float timeSub;
+    public float timeBonus;
+    public float timeSub;
+    public GameObject endScreen;
 
     //Handle time additions/subtractions in functions here. 
     public void Scored()
     {
         score++;
-        timerText.text = "Score: "+ score;
+        scoreText.text = "Score: "+ score;
         if(score % 5 == 0)
         {
             timeAddSub(true);
@@ -42,10 +43,19 @@ public class GameTracker : MonoBehaviour
         //call lose condition here 
         //bring up total score here too
         timer-= Time.deltaTime;
+        timerText.text = "TIME: "+timer.ToString("N0");
         if(timer <= 0)
         {
             //lose and restart options here
+            timerText.text = "TIME: 0";
+            GameOver();
         }   
+    }
+
+    private void GameOver()
+    {
+        endScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
 }

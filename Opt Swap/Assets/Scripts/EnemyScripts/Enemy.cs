@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private Vector3 directionS;//give a +-1 to either y or x to determine movement direction, that number is what is multiplied on update to move
     private SpriteRenderer spriteRef;
     private BoxCollider2D enemyBody;
+    
     public void SetUpEnemy(Vector3 direction)//this gets set by spawner as they grab an object from the pool to find the direction
     {
         //direction*=enemySpeed;

@@ -24,6 +24,7 @@ public class EnemyHealth : MonoBehaviour
     private void Awake() 
     {
         enemyHealthOG = enemyHealth;
+        scoreRef = FindFirstObjectByType<GameTracker>();//Turned to first obj and moved the dude to the top to get a quicker ref
         spriteRef = gameObject.GetComponent<SpriteRenderer>();
         enemyAudio = GetComponent<AudioSource>();  
         enemyBody = GetComponent<BoxCollider2D>(); 
@@ -66,7 +67,7 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.PlayOneShot(deathSound);
         spriteRef.enabled = false;
         enemyBody.enabled = false;
-        //scoreRef.Scored();
+        scoreRef.Scored();
         Instantiate(splatType[Random.Range(0, splatType.Length)], transform.position,rotation);
         yield return new WaitForSeconds(.5f);
         dead = false;
